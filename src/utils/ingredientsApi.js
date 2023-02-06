@@ -5,8 +5,6 @@ const config = {
       }
   }
 
-const ingredientsList1 = ['60d3b41abdacab0026a733c7', '60d3b41abdacab0026a733cd', '60d3b41abdacab0026a733c7']
-
 function handleBasicResponse(res) {
     if (res.ok) {
         return res.json();
@@ -33,6 +31,4 @@ export function orderApi(ingredientsList) {
     .then((res) => {
         return handleBasicResponse(res);
     });
-} 
-
-const request = orderApi(ingredientsList1)
+}

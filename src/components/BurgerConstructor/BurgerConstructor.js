@@ -8,8 +8,6 @@ import { useDrop } from 'react-dnd'
 import { v4 as uuidv4 } from "uuid";
 
 
-
-
 export default function BurgerConstructor() {
 
   const ingredients = useSelector(store => store.constructorList);
@@ -26,7 +24,7 @@ export default function BurgerConstructor() {
     collect: monitor => ({
         isHover: monitor.isOver(),
     })
-});
+  });
 
   const burgerFillingPrice = useMemo(() => {
     return burgerFillingStore.reduce((sum, item) => sum + item.price, 0);
@@ -40,7 +38,7 @@ export default function BurgerConstructor() {
     return bunStore === null ? burgerFillingPrice : burgerbunPrice + burgerFillingPrice;
   }, [burgerbunPrice, burgerFillingPrice, bunStore]);
 
-  const borderColor = isHover ? 'lightgreen' : 'transparent';
+  const borderColor = isHover ? 'lightblue' : 'transparent';
   
     return (
         <div ref={dropTarget} className={styles.constructor} style={{borderColor}}>
@@ -83,7 +81,3 @@ export default function BurgerConstructor() {
         </div>
       )
 };
-
-// BurgerConstructor.propTypes = {
-//   data: PropTypes.arrayOf(PropTypes.shape(propTypeData)).isRequired,
-// };

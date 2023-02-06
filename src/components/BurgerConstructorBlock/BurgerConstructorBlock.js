@@ -13,17 +13,17 @@ export default function BurgerConstructorBlock({
   isLocked,
   index,
   ingredientUniqId
-  }
-  ) 
+  }) 
   {
 
+  const dispatch = useDispatch();
   const elementIndex = index
   const [, dragRef] = useDrag({
     type: "ingredientBlock",
     item: {index}
   });
   
-  const [{isHover}, dropTarget] = useDrop({
+  const [, dropTarget] = useDrop({
     accept: "ingredientBlock",
     drop(index) {
       if (elementIndex === index.index) return;
@@ -31,15 +31,9 @@ export default function BurgerConstructorBlock({
          type: REORDER_INGREDIENT,
          payload: [index.index, elementIndex],
        })
-    },
-    collect: monitor => ({
-      isHover: monitor.isOver()
-    }),
+    }
   });
 
-
-  //console.log('ingredient', ingredient)
-  const dispatch = useDispatch();
    return (
     <>
     <li  ref={dropTarget} className={styles.constructor__column}>

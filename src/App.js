@@ -11,9 +11,6 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 
 
-const API = 'https://norma.nomoreparties.space/api/ingredients'
-
-
 function App() {
 
   const storeSelector = useSelector((state) => state)

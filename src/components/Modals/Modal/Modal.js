@@ -5,7 +5,6 @@ import ModalOverlay from "../ModalOverlay/ModalOverlay"
 
 const modalRoot = document.getElementById("modal");
 
-
 export default function Modal( { children, isModalOpened, toggleModal } ) {
     if (isModalOpened) {
       return ReactDOM.createPortal(

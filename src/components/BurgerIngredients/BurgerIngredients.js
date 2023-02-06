@@ -2,8 +2,6 @@ import styles from './BurgerIngredients.module.css'
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useState, useEffect } from "react";
 import BurgerIngridientsBlock from "../BurgerIngridientsBlock/BurgerIngridientsBlock"
-import PropTypes from "prop-types";
-import propTypeData from "../../utils/propTypeData"
 import {useSelector} from 'react-redux';
 
 
@@ -59,7 +57,3 @@ export default function BurgerIngredients() {
     </section>
   )
 };
-
-// BurgerIngredients.propTypes = {
-//   data: PropTypes.arrayOf(PropTypes.shape(propTypeData)).isRequired,
-// }; 

@@ -3,13 +3,14 @@
     background: #1C1C21;
     border-radius: 40px;
     position: absolute;
-    top: 15vh;
-    left: 300px;
+    top: 10%;
+    left: 25%;
     left: calc(100%-360px);
     display: flex;
     flex-direction: column;
     z-index: 2;
     align-items: center;
+    
 }
 
 .modal_close {
