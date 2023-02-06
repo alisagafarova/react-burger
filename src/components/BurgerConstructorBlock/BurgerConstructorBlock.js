@@ -1,29 +1,64 @@
 import styles from './BurgerConstructorBlock.module.css';
 import { ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
+import {DELETE_INGREDIENT, REORDER_INGREDIENT} from '../../services/actions/constructor'
+import { useDrag, useDrop } from "react-dnd";
+import { useDispatch} from 'react-redux';
 
 export default function BurgerConstructorBlock({
   text,
   price,
   thumbnail,
   type,
-  isLocked
+  isLocked,
+  index,
+  ingredientUniqId
   }
-  ) {
+  ) 
+  {
+
+  const elementIndex = index
+  const [, dragRef] = useDrag({
+    type: "ingredientBlock",
+    item: {index}
+  });
+  
+  const [{isHover}, dropTarget] = useDrop({
+    accept: "ingredientBlock",
+    drop(index) {
+      if (elementIndex === index.index) return;
+       dispatch({
+         type: REORDER_INGREDIENT,
+         payload: [index.index, elementIndex],
+       })
+    },
+    collect: monitor => ({
+      isHover: monitor.isOver()
+    }),
+  });
+
+
+  //console.log('ingredient', ingredient)
+  const dispatch = useDispatch();
    return (
     <>
-    <li  className={styles.constructor__column}>
+    <li  ref={dropTarget} className={styles.constructor__column}>
       <div>
             { !type && <DragIcon type="primary"/> }
       </div >
-      <div className={styles.constructor__element}>
+      <div >
+      <div ref={ dragRef } className={styles.constructor__element}>
       <ConstructorElement 
             type={type}
-            isLocked={isLocked}
+            handleClose={() =>
+              dispatch({ type: DELETE_INGREDIENT, payload: ingredientUniqId })
+            }
+            isLocked = {isLocked}
             text={text}
             price={price}
             thumbnail={thumbnail}
           />
+        </div>
         </div>
     </li>
     </>

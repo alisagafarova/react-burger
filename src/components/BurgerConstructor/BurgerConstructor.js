@@ -1,49 +1,89 @@
 import styles from './BurgerConstructor.module.css';
 import BurgerConstructorBlock from '../BurgerConstructorBlock/BurgerConstructorBlock'
 import BurgerTotalBlock from '../BurgerTotalBlock/BurgerTotalBlock'
-import PropTypes from "prop-types";
+import {ADD_INGREDIENT} from '../../services/actions/constructor'
+import {useSelector, useDispatch} from 'react-redux';
+import {useMemo} from "react";
+import { useDrop } from 'react-dnd'
+import { v4 as uuidv4 } from "uuid";
 
-export default function BurgerConstructor( { data }) {
-  const burgerFilling = data.filter(element => element.type === 'main');
-  const burgerbun  = data.filter(element => element.type === 'bun');
 
+
+
+export default function BurgerConstructor() {
+
+  const ingredients = useSelector(store => store.constructorList);
+  const burgerFillingStore = ingredients.fillings;
+  const bunStore = ingredients.bun;
+
+  const dispatch = useDispatch()
+
+  const [{isHover}, dropTarget] = useDrop({
+    accept: "ingredient",
+    drop(ingredient) {
+      dispatch({ type: ADD_INGREDIENT, payload: ingredient, number: uuidv4()})
+    },
+    collect: monitor => ({
+        isHover: monitor.isOver(),
+    })
+});
+
+  const burgerFillingPrice = useMemo(() => {
+    return burgerFillingStore.reduce((sum, item) => sum + item.price, 0);
+  }, [burgerFillingStore]);
+
+  const burgerbunPrice = useMemo(() => {
+    return bunStore === null ? 0 : bunStore.price * 2;
+  }, [bunStore]);
+
+  const totalPrice = useMemo(() => {
+    return bunStore === null ? burgerFillingPrice : burgerbunPrice + burgerFillingPrice;
+  }, [burgerbunPrice, burgerFillingPrice, bunStore]);
+
+  const borderColor = isHover ? 'lightgreen' : 'transparent';
+  
     return (
-        <section className={styles.constructor}>
-            {burgerbun.length>1 && 
+        <div ref={dropTarget} className={styles.constructor} style={{borderColor}}>
+            {bunStore != null && 
             <BurgerConstructorBlock
-              key = {burgerbun[0]._id}
               type="top"
-              text={burgerbun[0].name}
-              price = {burgerbun[0].price}
-              thumbnail = {burgerbun[0].image}
+              text={bunStore.name}
+              price = {bunStore.price}
+              thumbnail = {bunStore.image}
+              id = {bunStore._id}
               isLocked={true}
             />}
           <ul className={styles.constructor__list}>
-            {burgerFilling.map( filling =>
+            {burgerFillingStore.map( (filling, index) =>
               <BurgerConstructorBlock
-                key = {filling._id}
+                key = {index}
+                index = {index}
+                ingredientCard = {filling}
                 text={filling.name}
                 price = {filling.price}
                 thumbnail = {filling.image}
-                isLocked={true}
+                id = {filling._id}
+                ingredientUniqId = {filling.ingredientUniqId}
+                isLocked={false}
               />
             )}
           </ul>
-            {burgerbun.length>1 && 
+            {bunStore != null && 
             <BurgerConstructorBlock
-              key = {burgerbun[1]._id}
               type="bottom"
-              text={burgerbun[1].name}
-              price = {burgerbun[1].price}
-              thumbnail = {burgerbun[1].image}
+              text={bunStore.name}
+              price = {bunStore.price}
+              thumbnail = {bunStore.image}
               isLocked={true}
+              id = {bunStore._id}
               />}
-            <BurgerTotalBlock/>
-        </section>
+            { totalPrice !== 0 &&
+            <BurgerTotalBlock totalPrice ={totalPrice} ingredients = {ingredients}/>
+            }
+        </div>
       )
 };
 
-BurgerConstructor.propTypes = {
-  data: PropTypes.array
-}; 
-
+// BurgerConstructor.propTypes = {
+//   data: PropTypes.arrayOf(PropTypes.shape(propTypeData)).isRequired,
+// };

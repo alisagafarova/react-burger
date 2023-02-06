@@ -5,6 +5,7 @@
     gap: 16px;
     height: 656px;
     width: 600px;
+    
 }
 
 .constructor__list {
@@ -15,5 +16,5 @@
     gap: 16px;
     padding-left: 0px;
     overflow-y: scroll;
-    min-height: 464px;
+    max-height: 464px;
 }
