@@ -8,7 +8,17 @@
     font-weight: 700;
     font-size: 36px;
     line-height: 40px;
-
 }
 
+.ingredient__modal_img {
+    align-self: center;
+    width: 480px;
+    height: 240px;
+    background-repeat: no-repeat;
+    background-size : cover;
+}
+
+.ingredient__modal_text  {
+    align-self: center;
+}
 

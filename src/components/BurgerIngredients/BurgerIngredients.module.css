@@ -5,6 +5,10 @@
   height: calc(100vh - 150px);
 }
 
+.ingredients__block_headers {
+  display: flex;
+}
+
 .ingredients__blocks {
   display: flex;
   flex-direction: column;

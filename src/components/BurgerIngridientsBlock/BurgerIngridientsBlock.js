@@ -1,31 +1,32 @@
-import styles from './BurgerIngridientsBlock.module.css'
-import IngredientCard from "../BurgerIngredientCard/IngredientCard"
-import PropTypes from "prop-types";
+import styles from './BurgerIngridientsBlock.module.css';
+import IngredientCard from '../BurgerIngredientCard/IngredientCard';
+import PropTypes from 'prop-types';
 
+export default function BurgerIngridientsBlock({ ingredientBlockName, ingredientsArray }) {
+  const ingredientGroupArray = ingredientsArray.filter(
+    (element) => element.type === ingredientBlockName.value,
+  );
 
-export default function BurgerIngridientsBlock({ 
-    ingredientBlockName,
-    ingredientsArray
-    }) {
-      
-    const ingredientGroupArray = ingredientsArray.filter(element => element.type === ingredientBlockName.value);
-
-    return (
+  return (
+    <>
       <div className="mt-10">
-        <p id = {ingredientBlockName.value} className="text text_type_main-medium">{ingredientBlockName.name}</p>
+        <p id={ingredientBlockName.value} className="text text_type_main-medium">
+          {ingredientBlockName.name}
+        </p>
         <div className={styles.ingredient_block__grid}>
-        {ingredientGroupArray.map( (groupIngredient, index) =>
-          <IngredientCard 
-          key={index}
-          ingredient={groupIngredient}
-          num = {index}></IngredientCard>
-      )}
+          {ingredientGroupArray.map((groupIngredient, index) => (
+            <IngredientCard
+              key={groupIngredient._id}
+              ingredient={groupIngredient}
+              num={index}></IngredientCard>
+          ))}
         </div>
-      </div> 
-    )
- };
+      </div>
+    </>
+  );
+}
 
- BurgerIngridientsBlock.propTypes = {
+BurgerIngridientsBlock.propTypes = {
   ingredientBlockName: PropTypes.object,
   ingredientsArray: PropTypes.array,
-}; 
+};

@@ -1,7 +1,8 @@
 import {
     ADD_INGREDIENT,
     DELETE_INGREDIENT,
-    REORDER_INGREDIENT
+    REORDER_INGREDIENT,
+    RESET_INGREDIENTS
   } from "../actions/constructor";
 
 
@@ -42,6 +43,12 @@ const constructorReducer = (state = initialState, action) => {
             return {
                 ...state,
             };
+        case RESET_INGREDIENTS:                   
+        return {
+            ...state,
+            bun: null,
+            fillings: []
+        };
         default:
             return state
     }

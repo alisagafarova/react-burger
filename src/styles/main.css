@@ -8,6 +8,9 @@ body {
 
 main {
     height: calc(100vh - 88px);
+    display: flex;
+    justify-content: center;
+    gap: 24px
 }
 
 ::-webkit-scrollbar {
