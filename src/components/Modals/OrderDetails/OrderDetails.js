@@ -1,6 +1,5 @@
 import styles from './OrderDetails.module.css';
 import image from '../../../images/done.svg';
-import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
 export default function OrderDetails() {
@@ -23,7 +22,3 @@ export default function OrderDetails() {
     </>
   );
 }
-
-OrderDetails.propTypes = {
-  toggleModal: PropTypes.func,
-};

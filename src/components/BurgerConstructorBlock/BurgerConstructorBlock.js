@@ -33,23 +33,21 @@ export default function BurgerConstructorBlock({
   });
 
   return (
-    <>
-      <li ref={dropTarget} className={styles.constructor__column}>
-        <div>{!type && <DragIcon type="primary" />}</div>
-        <div>
-          <div ref={dragRef} className={styles.constructor__element}>
-            <ConstructorElement
-              type={type}
-              handleClose={() => dispatch({ type: DELETE_INGREDIENT, payload: ingredientUniqId })}
-              isLocked={isLocked}
-              text={text}
-              price={price}
-              thumbnail={thumbnail}
-            />
-          </div>
+    <li ref={dropTarget} className={styles.constructor__column}>
+      <div>{!type && <DragIcon type="primary" />}</div>
+      <div>
+        <div ref={dragRef} className={styles.constructor__element}>
+          <ConstructorElement
+            type={type}
+            handleClose={() => dispatch({ type: DELETE_INGREDIENT, payload: ingredientUniqId })}
+            isLocked={isLocked}
+            text={text}
+            price={price}
+            thumbnail={thumbnail}
+          />
         </div>
-      </li>
-    </>
+      </div>
+    </li>
   );
 }
 
@@ -59,4 +57,5 @@ BurgerConstructorBlock.propTypes = {
   thumbnail: PropTypes.string,
   type: PropTypes.string,
   isLocked: PropTypes.bool,
+  ingredientUniqId: PropTypes.string
 };

@@ -13,9 +13,9 @@ export default function ModalOverlay({ toggleModal }) {
   useEffect(() => {
     document.addEventListener('keydown', closeModalEsc);
     return () => {
-      document.removeEventListener('keydown', closeModalEsc);
+    document.removeEventListener('keydown', closeModalEsc);
     };
-  });
+  }, []);
 
-  return <div className={styles.modal_overlay} onClick={() => toggleModal()}></div>;
+  return <div className={styles.modal_overlay} onClick={toggleModal}></div>;
 }

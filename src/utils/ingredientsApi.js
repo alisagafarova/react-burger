@@ -5,16 +5,12 @@ const config = {
   },
 };
 
+function checkResponse(res) {
+  return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
+}
+
 export function getlIngredientsApi() {
-  return fetch(`${config.API_URL}/ingredients`)
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-    })
-    .catch((err) => {
-      console.log(`Ошибка: ${err}`);
-    });
+  return fetch(`${config.API_URL}/ingredients`).then(checkResponse);
 }
 
 export function orderApi(ingredientsList) {
@@ -24,10 +20,5 @@ export function orderApi(ingredientsList) {
     body: JSON.stringify({
       ingredients: ingredientsList,
     }),
-  })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-    })
+  }).then(checkResponse);
 }
