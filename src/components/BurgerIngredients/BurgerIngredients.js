@@ -3,7 +3,10 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useState, useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 import BurgerIngridientsBlock from '../BurgerIngridientsBlock/BurgerIngridientsBlock';
-import { useSelector } from 'react-redux';
+import Modal from '../Modals/Modal/Modal';
+import IngredientDetails from '../Modals/IngredientDetails/IngredientDetails';
+import { useSelector, useDispatch } from 'react-redux';
+import { CURRENT_INGREDIENT } from '../../services/actions/ingredientDetails';
 
 const ingredientBlockNames = [
   {
@@ -45,46 +48,66 @@ export default function BurgerIngredients() {
     }
   }, [bunRefInView, sauceRefInView, mainRefInView]);
 
+  const dispatch = useDispatch();
+  const [modal, isModalOpen] = useState(false);
+
+  const onClickIngredient = (groupIngredient) => {
+    dispatch({ type: CURRENT_INGREDIENT, payload: groupIngredient });
+    isModalOpen(!modal);
+  };
+
+  const toggleModal = () => {
+    isModalOpen(!modal);
+  };
+
   return (
-    <section className={`mt-30" ${styles.ingredients}`}>
-      <h1 id="text" className="text text_type_main-large">
-        Соберите бургер
-      </h1>
-      <div className={`mt-5" ${styles.ingredients__block_headers}`}>
-        {ingredientBlockNames.map((tab) => (
-          <Tab
-            key={tab.name}
-            value={tab.value}
-            active={currentBlock === tab.value}
-            onClick={setBlockState}>
-            {tab.name}
-          </Tab>
-        ))}
-      </div>
-      {ingredients !== undefined && (
-        <div className={styles.ingredients__blocks}>
-          <div ref={bunRef}>
-            <BurgerIngridientsBlock
-              key={ingredientBlockNames[0].name}
-              ingredientBlockName={ingredientBlockNames[0]}
-              ingredientsArray={ingredients}
-              //onClickFunction = {onClickIngredient}
-            ></BurgerIngridientsBlock>
-          </div>
-          <div ref={sauceRef}>
-            <BurgerIngridientsBlock
-              key={ingredientBlockNames[1].name}
-              ingredientBlockName={ingredientBlockNames[1]}
-              ingredientsArray={ingredients}></BurgerIngridientsBlock>
-          </div>
-          <div ref={mainRef}>
-            <BurgerIngridientsBlock
-              key={ingredientBlockNames[2].name}
-              ingredientBlockName={ingredientBlockNames[2]}
-              ingredientsArray={ingredients}></BurgerIngridientsBlock>
-          </div>
+    <>
+      <div className={`mt-30" ${styles.ingredients}`}>
+        <h1 id="text" className="text text_type_main-large">
+          Соберите бургер
+        </h1>
+        <div className={`mt-5" ${styles.ingredients__block_headers}`}>
+          {ingredientBlockNames.map((tab) => (
+            <Tab
+              key={tab.name}
+              value={tab.value}
+              active={currentBlock === tab.value}
+              onClick={setBlockState}>
+              {tab.name}
+            </Tab>
+          ))}
         </div>
+        {ingredients !== undefined && (
+          <div className={styles.ingredients__blocks}>
+            <div ref={bunRef}>
+              <BurgerIngridientsBlock
+                key={ingredientBlockNames[0].name}
+                ingredientBlockName={ingredientBlockNames[0]}
+                ingredientsArray={ingredients}
+                onClickIngredient={onClickIngredient}></BurgerIngridientsBlock>
+            </div>
+            <div ref={sauceRef}>
+              <BurgerIngridientsBlock
+                key={ingredientBlockNames[1].name}
+                ingredientBlockName={ingredientBlockNames[1]}
+                onClickIngredient={onClickIngredient}
+                ingredientsArray={ingredients}></BurgerIngridientsBlock>
+            </div>
+            <div ref={mainRef}>
+              <BurgerIngridientsBlock
+                key={ingredientBlockNames[2].name}
+                ingredientBlockName={ingredientBlockNames[2]}
+                onClickIngredient={onClickIngredient}
+                ingredientsArray={ingredients}></BurgerIngridientsBlock>
+            </div>
+          </div>
+        )}
+      </div>
+      {modal && (
+        <Modal toggleModal={toggleModal}>
+          <IngredientDetails />
+        </Modal>
       )}
-    </section>
+    </>
   );
 }

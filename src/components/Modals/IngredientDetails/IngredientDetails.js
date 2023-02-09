@@ -1,11 +1,9 @@
 import styles from './IngredientDetails.module.css';
 import IngredientDetailNutrition from '../IngredientDetails/IngredientDetailNutrition/IngredientDetailNutrition';
 import { useSelector } from 'react-redux';
-import { v4 as uuidv4 } from 'uuid';
 
 export default function IngredientDetails() {
   const ingredientCard = useSelector((store) => store.ingredientDetail.currentIngredient);
-  ingredientCard.uniqueId = uuidv4()
 
   return (
     <>
@@ -22,7 +20,7 @@ export default function IngredientDetails() {
         src={ingredientCard.image}>
         {ingredientCard.name}
       </p>
-      <IngredientDetailNutrition key={ingredientCard.uniqueId} ingredient={ingredientCard} />
+      <IngredientDetailNutrition ingredient={ingredientCard} />
     </>
   );
 }

@@ -1,23 +1,12 @@
 import styles from './IngredientCard.module.css';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useState, useMemo } from 'react';
-import IngredientDetails from '../Modals/IngredientDetails/IngredientDetails';
-import Modal from '../Modals/Modal/Modal';
+import { useMemo } from 'react';
 import { useDrag } from 'react-dnd';
-import { useSelector, useDispatch } from 'react-redux';
-import { CURRENT_INGREDIENT } from '../../services/actions/ingredientDetails';
+import { useSelector } from 'react-redux';
 
 export default function IngredientCard(props) {
   const ingridientElement = props.ingredient;
   const { bun, fillings } = useSelector((store) => store.constructorList);
-
-  const [modal, isModalOpen] = useState(false);
-  const dispatch = useDispatch();
-
-  const toggleModal = () => {
-    dispatch({ type: CURRENT_INGREDIENT, payload: ingridientElement });
-    isModalOpen(!modal);
-  };
 
   const [, dragRef] = useDrag({
     type: 'ingredient',
@@ -38,11 +27,7 @@ export default function IngredientCard(props) {
 
   return (
     <>
-      <div
-        id={ingridientElement._id}
-        ref={dragRef}
-        onClick={toggleModal}
-        className={styles.ingredient}>
+      <div id={ingridientElement._id} ref={dragRef} className={styles.ingredient}>
         <Counter count={counter} size="default" extraClass="m-1" />
         <img
           src={ingridientElement.image}
@@ -57,12 +42,6 @@ export default function IngredientCard(props) {
           {ingridientElement.name}
         </p>
       </div>
-
-      {modal && (
-        <Modal toggleModal={toggleModal}>
-          <IngredientDetails key={ingridientElement._id} />
-        </Modal>
-      )}
     </>
   );
 }

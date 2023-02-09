@@ -2,7 +2,11 @@ import styles from './BurgerIngridientsBlock.module.css';
 import IngredientCard from '../BurgerIngredientCard/IngredientCard';
 import PropTypes from 'prop-types';
 
-export default function BurgerIngridientsBlock({ ingredientBlockName, ingredientsArray }) {
+export default function BurgerIngridientsBlock({
+  ingredientBlockName,
+  ingredientsArray,
+  onClickIngredient,
+}) {
   const ingredientGroupArray = ingredientsArray.filter(
     (element) => element.type === ingredientBlockName.value,
   );
@@ -15,10 +19,9 @@ export default function BurgerIngridientsBlock({ ingredientBlockName, ingredient
         </p>
         <div className={styles.ingredient_block__grid}>
           {ingredientGroupArray.map((groupIngredient, index) => (
-            <IngredientCard
-              key={groupIngredient._id}
-              ingredient={groupIngredient}
-              num={index}></IngredientCard>
+            <div key={groupIngredient._id} onClick={() => onClickIngredient(groupIngredient)}>
+              <IngredientCard ingredient={groupIngredient} num={index}></IngredientCard>
+            </div>
           ))}
         </div>
       </div>
