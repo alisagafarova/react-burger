@@ -32,4 +32,5 @@ export default function BurgerIngridientsBlock({
 BurgerIngridientsBlock.propTypes = {
   ingredientBlockName: PropTypes.object,
   ingredientsArray: PropTypes.array,
+  onClickIngredient: PropTypes.func
 };
