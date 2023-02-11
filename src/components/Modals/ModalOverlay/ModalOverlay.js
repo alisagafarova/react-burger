@@ -1,6 +1,5 @@
 import styles from './ModalOverlay.module.css';
 import { useEffect } from 'react';
-import PropTypes from 'prop-types';
 
 export default function ModalOverlay({ toggleModal }) {
   const closeModalEsc = (e) => {
@@ -10,6 +9,7 @@ export default function ModalOverlay({ toggleModal }) {
       toggleModal();
     }
   };
+  console.log(typeof toggleModal);
 
   useEffect(() => {
     document.addEventListener('keydown', closeModalEsc);
@@ -20,7 +20,3 @@ export default function ModalOverlay({ toggleModal }) {
 
   return <div className={styles.modal_overlay} onClick={toggleModal}></div>;
 }
-
-ModalOverlay = {
-  toggleModal: PropTypes.func,
-};
