@@ -22,5 +22,6 @@ export default function Modal({ children, toggleModal }) {
 }
 
 Modal.propTypes = {
-  children: PropTypes.object,
+  children: PropTypes.object.isRequired,
+  toggleModal: PropTypes.func.isRequired,
 };
