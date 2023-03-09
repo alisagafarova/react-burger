@@ -4,13 +4,15 @@
  import constructorReducer from './constructor'
  import {currentOrderReducer} from './order'
  import {currentIngredientReducer} from './ingredientDetails'
+ import {userReducer} from './userForm'
 
 
  const rootReducer = combineReducers({
   ingredientList: ingredientsReducer,
   constructorList: constructorReducer,
   orderList: currentOrderReducer,
-  ingredientDetail: currentIngredientReducer
+  ingredientDetail: currentIngredientReducer,
+  userReducer: userReducer
 })
 
 
