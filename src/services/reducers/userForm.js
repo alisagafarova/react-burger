@@ -20,10 +20,47 @@ import {
 
 const initialState = {
   registerForm: {
-    name: '',
-    email: '',
-    password: '',
+    name: "",
+    email: "",
+    password: "",
   },
+
+  loginForm: {
+    email: "",
+    password: "",
+  },
+
+  user: {
+    email: "",
+    name: "",
+  },
+
+  forgotPasswordForm: {
+    email: "",
+  },
+
+  resetPasswordForm: {
+    password: "",
+    token: "",
+  },
+
+  isAuth: false,
+
+  registrationSubmit: false,
+  registrationFailed: false,
+
+  loginSubmit: false,
+  loginFailed: false,
+
+  forgotPasswordSubmit: false,
+  forgotPasswordFailed: false,
+  resetEmailSent: false,
+
+  resetPasswordSubmit: false,
+  resetPasswordFailed: false,
+
+  changeUserDataSubmit: false,
+  changeUserDataFailed: false,
 };
 
 export function userReducer(state = initialState, action) {

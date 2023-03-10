@@ -8,11 +8,11 @@
 
 
  const rootReducer = combineReducers({
+  userReducer: userReducer,
   ingredientList: ingredientsReducer,
   constructorList: constructorReducer,
   orderList: currentOrderReducer,
-  ingredientDetail: currentIngredientReducer,
-  userReducer: userReducer
+  ingredientDetail: currentIngredientReducer
 })
 
 

@@ -17,21 +17,16 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 function App() {
-  const storeSelector = useSelector((state) => state);
-  const isAuth = useSelector((store) => store.userReducer.isAuth);
-  const resetEmailSent = useSelector((store) => store.userReducer.resetEmailSent);
-  const location = useLocation();
-  const background = location.state?.locationIngredient || location;
-  //sconsole.log(storeSelector);
-
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getItems());
-  }, [dispatch]);
 
   useEffect(() => {
     dispatch(checkUserAccess());
-  }, []);
+    dispatch(getItems());
+  }, [dispatch]);
+
+  const storeSelector = useSelector((state) => state);
+  const location = useLocation();
+  const background = location.state?.locationIngredient || location;
 
   return (
     <>
@@ -40,17 +35,9 @@ function App() {
         <Route path="/" element={<MainPage />} />
         <Route path="ingredients/:id" element={<IngredientPage />} />
         <Route
-          path="ingredients/:id"
-          element={
-            <ProtectedRoute isAuth={!isAuth} to="/">
-              <LoginPage />
-            </ProtectedRoute>
-          }
-        />
-        <Route
           path="login"
           element={
-            <ProtectedRoute isAuth={!isAuth} to="/">
+            <ProtectedRoute onlyUnAuth={true} >
               <LoginPage />
             </ProtectedRoute>
           }
@@ -58,7 +45,7 @@ function App() {
         <Route
           path="register"
           element={
-            <ProtectedRoute isAuth={!isAuth} to="/">
+            <ProtectedRoute onlyUnAuth={true} >
               <RegisterPage />
             </ProtectedRoute>
           }
@@ -66,7 +53,7 @@ function App() {
         <Route
           path="forgot-password"
           element={
-            <ProtectedRoute isAuth={!isAuth} to="/">
+            <ProtectedRoute onlyUnAuth={true} >
               <ForgotPasswordPage />
             </ProtectedRoute>
           }
@@ -74,7 +61,7 @@ function App() {
         <Route
           path="reset-password"
           element={
-            <ProtectedRoute isAuth={resetEmailSent} to="/login">
+            <ProtectedRoute onlyUnAuth={true} >
               <ResetPasswordPage />
             </ProtectedRoute>
           }
@@ -82,12 +69,12 @@ function App() {
         <Route
           path="profile"
           element={
-            <ProtectedRoute isAuth={isAuth} to="/login">
+            <ProtectedRoute onlyUnAuth={false} >
               <ProfilePage />
             </ProtectedRoute>
           }
         />
-        <Route path="ingredients/:id" element={<IngredientPage />}/>
+        <Route path="ingredients/:id" element={<IngredientPage />} />
       </Routes>
       {location.state?.locationIngredient && (
         <Routes>

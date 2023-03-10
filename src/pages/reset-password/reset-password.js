@@ -39,12 +39,14 @@ export default function ResetPasswordPage() {
               placeholder="Введите новый пароль"
               name="password"
               onChange={onResetPasswordForm}
+              value={resetPasswordForm.password}
             />
             <Input
               placeholder="Введите код из письма"
               name="token"
               type="text"
               onChange={onResetPasswordForm}
+              value={resetPasswordForm.token}
             />
             <div className={styles.reset_button}>
               <Button htmlType="submit" type="primary" size="medium">

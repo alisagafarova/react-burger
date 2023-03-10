@@ -32,9 +32,9 @@ export default function RegisterPage() {
         <div className={styles.register__content}>
           <p className="text text_type_main-medium mb-6">Регистрация</p>
           <form className={styles.register_form} onSubmit={regestrationFormSubmit}>
-            <Input placeholder="Имя" type="text" name="name" onChange={onRegisterFormChange} />
-            <EmailInput name="email" onChange={onRegisterFormChange} />
-            <PasswordInput name="password" onChange={onRegisterFormChange} />
+            <Input placeholder="Имя" type="text" name="name" onChange={onRegisterFormChange} value={registerForm.name}/>
+            <EmailInput name="email" onChange={onRegisterFormChange} value={registerForm.email}/>
+            <PasswordInput name="password" onChange={onRegisterFormChange} value={registerForm.password}/>
             <div className={styles.register_button}>
               <Button htmlType="submit" type="primary" size="medium">
                 Зарегистрироваться

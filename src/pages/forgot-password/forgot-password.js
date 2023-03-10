@@ -31,6 +31,7 @@ export default function ForgotPasswordPage() {
               placeholder="Укажите e-mail"
               name="email"
               onChange={onForgotPasswordFormChange}
+              value={forgotPasswordForm.email}
             />
             <div className={styles.forgot_button}>
               <Button htmlType="submit" type="primary" size="medium">

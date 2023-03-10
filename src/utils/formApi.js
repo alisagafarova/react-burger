@@ -6,7 +6,7 @@ const config = {
 };
 
 function checkResponse(res) {
-  return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
+  return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
 }
 
 export function registerUserApi(userData) {

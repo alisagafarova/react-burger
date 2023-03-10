@@ -31,8 +31,8 @@ export default function LoginPage() {
         <div className={styles.login__content}>
           <p className="text text_type_main-medium mb-6">Вход</p>
           <form className={styles.login_form} onSubmit={loginFormSubmit}>
-            <EmailInput name="email" onChange={onLoginFormChange} />
-            <PasswordInput name="password" onChange={onLoginFormChange} />
+            <EmailInput name="email" onChange={onLoginFormChange} value={loginForm.email} />
+            <PasswordInput name="password" onChange={onLoginFormChange} value={loginForm.password}/>
             <div className={styles.login_button}>
               <Button htmlType="submit" type="primary" size="medium">
                 Войти
