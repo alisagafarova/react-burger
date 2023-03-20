@@ -1,19 +1,28 @@
 .profile__main {
   display: flex;
   align-items: center;
+  
 }
 
 .profile__content {
+  width: 1280px;
+  height: 80vh;
+  align-self: auto;
   display: flex;
-  flex-direction: row;
+  justify-content: space-between;
   gap: 60px;
+
+
 }
 
 .profile_navigation {
   width: 320px;
+  align-self: center;
   display: flex;
   flex-direction: column;
   gap: 24px;
+
+
 }
 
 .profile_nav {
@@ -26,6 +35,11 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
+}
+
+.profile_info {
+  width: 844px;
+  align-self: center;
 }
 
 .profile_button {
