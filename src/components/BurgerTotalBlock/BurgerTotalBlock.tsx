@@ -32,7 +32,9 @@ const BurgerTotalBlock: FC<IBurgerTotalBlock> = ({ ingredients, totalPrice }) =>
   return (
     <div className={styles.constructor__total}>
       <div className={styles.constructor__order}>
-        <p className="text text_type_digits-default">{totalPrice}</p>
+        <p data-testid="totalPrice" className="text text_type_digits-default">
+          {totalPrice}
+        </p>
         <CurrencyIcon type="primary" />
       </div>
       <Button

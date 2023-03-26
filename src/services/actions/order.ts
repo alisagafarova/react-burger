@@ -26,7 +26,6 @@ export function createOrder(ingredients: IIngredients) {
     });
     orderApi(ingredientsOrderList)
       .then((res) => {
-        console.log('res', res)
         dispatch({
           type: GET_ORDER_SUCCESS,
           order: res.order.number,

@@ -4,16 +4,17 @@ import {
   REORDER_INGREDIENT,
   RESET_INGREDIENTS,
 } from '../actions/constructor';
-import { TConstructorAction, IConstructorInitialState } from "../types/data";
+import { TConstructorAction, IConstructorInitialState, IIngredient } from "../types/data";
 
-const initialState : IConstructorInitialState = {
+const initialState: IConstructorInitialState = {
   bun: null,
   fillings: [],
-  number: [],
+  number: null
 };
 
+
 const constructorReducer = (state = initialState, action: TConstructorAction
-  ): IConstructorInitialState => {
+): IConstructorInitialState => {
   switch (action.type) {
     case ADD_INGREDIENT:
       if (action.payload.ingridientElement.type === 'bun') {
@@ -51,4 +52,5 @@ const constructorReducer = (state = initialState, action: TConstructorAction
   }
 };
 
-export default constructorReducer;
+export {constructorReducer, initialState};
+

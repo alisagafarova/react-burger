@@ -1,9 +1,15 @@
 import styles from './profile.module.css';
-import { NavLink, useNavigate, useLocation } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { getCookie } from '../../utils/cookie';
 import { logoutUser } from '../../services/actions/userForm';
 import { useDispatch } from '../../services/hooks';
 import { Outlet } from 'react-router';
+import { useEffect } from 'react';
+import { WS_URL_PROFILE } from '../../utils/variables';
+import {
+  wsConnectionStartOrdersAction,
+  wsConnectionClosedOrdersAction,
+} from '../../services/actions/wsAction';
 
 export const ProfilePage = (): JSX.Element => {
   const activeStyle = {
@@ -13,6 +19,13 @@ export const ProfilePage = (): JSX.Element => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const refreshToken = getCookie('refreshToken');
+
+  useEffect(() => {
+    dispatch(wsConnectionStartOrdersAction(WS_URL_PROFILE));
+    return () => {
+      dispatch(wsConnectionClosedOrdersAction());
+    };
+  }, []);
 
   return (
     <>
@@ -31,7 +44,7 @@ export const ProfilePage = (): JSX.Element => {
                 to="orders"
                 style={({ isActive }) => (isActive ? activeStyle : undefined)}
                 className={`text text_type_main-medium text_color_inactive ${styles.profile_link}`}
-                state={{ order: true }}
+                // state={{ order: true }}
                 end>
                 История заказов
               </NavLink>

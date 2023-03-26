@@ -20,19 +20,34 @@ import { useEffect, FC } from 'react';
 import { useDispatch, useSelector } from '../../services/hooks';
 import { UserOrderPage } from '../../pages/user-order-page/user-order-page';
 import { ProfileUserInfo } from '../ProfileUserInfo/ProfileUserInfo';
+import { WS_URL_ALL } from '../../utils/variables';
+import {
+  wsConnectionStartOrdersAction,
+  wsConnectionClosedOrdersAction,
+} from '../../services/actions/wsAction';
 
 const App: FC = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(checkUserAccess());
+    //dispatch(checkUserAccess());
+    //dispatch(wsConnectionStartOrdersAction(WS_URL_ALL));
     dispatch(getItems());
+    return () => {
+      dispatch(wsConnectionClosedOrdersAction());
+    };
   }, [dispatch]);
 
   const storeSelector = useSelector((state) => state);
   const location = useLocation();
-  const background = location.state?.locationIngredient || location;
-console.log(storeSelector)
+  const background =
+    location.state?.locationIngredient ||
+    location.state?.locationFeed ||
+    location.state?.locationProfile ||
+    location;
+
+  console.log(storeSelector);
+
   return (
     <>
       <AppHeader />
@@ -74,15 +89,6 @@ console.log(storeSelector)
             </ProtectedRoute>
           }
         />
-        {/* <Route
-          path="profile"
-          element={
-            <ProtectedRoute onlyUnAuth={false}>
-              <ProfilePage />
-            </ProtectedRoute>
-          }
-        /> */}
-
         <Route
           path={'profile'}
           element={
@@ -112,7 +118,7 @@ console.log(storeSelector)
             path="/feed/:id"
             element={
               <Modal isModalRoute={true}>
-                <FeedPageDetails />
+                <FeedPageDetails isProfilePage={false} />
               </Modal>
             }
           />
@@ -120,7 +126,14 @@ console.log(storeSelector)
       )}
       {location.state?.locationProfile && (
         <Routes>
-          <Route path="/profile/orders/:id" element={<Modal isModalRoute={true}></Modal>} />
+          <Route
+            path="/profile/orders/:id"
+            element={
+              <Modal isModalRoute={true}>
+                <FeedPageDetails isProfilePage={true} />
+              </Modal>
+            }
+          />
         </Routes>
       )}
     </>

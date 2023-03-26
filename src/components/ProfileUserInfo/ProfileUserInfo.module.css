@@ -1,7 +1,6 @@
 .profile__main {
     display: flex;
     align-items: center;
-    border: solid red 1px
   }
   
   .profile__content {

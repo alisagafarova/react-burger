@@ -4,7 +4,7 @@ import { IIngredient } from '../../services/types/data';
 import { IOrder } from '../../services/types/data';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from '../../services/hooks';
-import { v4 as uuidv4 } from 'uuid';
+import { WS_URL_ALL } from '../../utils/variables';
 
 import {
   wsConnectionStartOrdersAction,
@@ -17,7 +17,7 @@ export const OrderPage = (): JSX.Element | any => {
   const { orders } = useSelector((store) => store.wsReducer);
 
   useEffect(() => {
-    dispatch(wsConnectionStartOrdersAction());
+    dispatch(wsConnectionStartOrdersAction(WS_URL_ALL));
     return () => {
       dispatch(wsConnectionClosedOrdersAction());
     };
@@ -46,7 +46,7 @@ export const OrderPage = (): JSX.Element | any => {
     orderCard !== null && (
       <>
         <div className={'mt-30'}>
-          <FeedPageDetails key={uuidv4()} /> 
+          <FeedPageDetails /> 
         </div>
       </>
     )

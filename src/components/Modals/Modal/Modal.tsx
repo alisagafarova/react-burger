@@ -34,13 +34,13 @@ const Modal: FC<IModal> = ({ onCloseModal, children, isModalRoute }) => {
 
   return ReactDOM.createPortal(
     <>
-      <div className={styles.details__modal}>
+      <div data-testid="modal" className={styles.details__modal}>
         <div id="modal_close" className={styles.modal_close}>
           <CloseIcon type="primary" onClick={() => modalClose()} />
         </div>
         {children}
       </div>
-      <ModalOverlay onCloseModal={() => modalClose()} />
+      <ModalOverlay  onCloseModal={() => modalClose()} />
     </>,
     modalRoot,
   );
