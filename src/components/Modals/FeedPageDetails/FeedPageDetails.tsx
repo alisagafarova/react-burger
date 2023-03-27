@@ -8,7 +8,8 @@ import { IOrder } from '../../../services/types/data';
 import { useMemo } from 'react';
 
 export const FeedPageDetails: FC | any = (isProfilePage: boolean | undefined) => {
-  const { orders } = useSelector((store) => store.wsReducer);
+
+  const { orders } = useSelector((store) => store.wsReducer); 
   const { id } = useParams();
   const order: IOrder | undefined = orders.find((item) => item._id === id);
 

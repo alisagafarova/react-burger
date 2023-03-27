@@ -10,7 +10,7 @@ const wsMiddleware = (wsActions: TWsOrdersActions): Middleware => (
   let socket: WebSocket | null = null;
 
   return (next) => (action) => {
-    const { dispatch, getState } = store;
+    const { dispatch } = store;
     const { type, payload } = action;
     const { wsInit, onOpen, onClose, onError, onOrders } = wsActions;
 
@@ -25,7 +25,7 @@ const wsMiddleware = (wsActions: TWsOrdersActions): Middleware => (
       };
 
       socket.onerror = (event) => {
-        dispatch({ type: onError, orders: event });
+        dispatch({ type: onError, error: event });
       };
 
       socket.onmessage = (event) => {

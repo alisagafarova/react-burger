@@ -111,7 +111,7 @@ export interface IBurgerIngridientsBlock {
 
 export interface IIngredientCard {
     ingredient: IIngredient;
-    onClickIngredient: any;
+    onClickIngredient: () => void;
 }
 
 export interface IIngredients {
@@ -381,6 +381,7 @@ export interface IWsConnectionSuccessOrdersAction {
 
 export interface IWsConnectionErrorOrdersAction {
     readonly type: typeof WS_CONNECTION_ERROR_ORDERS;
+    readonly error: string | any ;
 }
 
 export interface IWsConnectionClosedOrdersAction {

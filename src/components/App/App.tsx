@@ -20,22 +20,14 @@ import { useEffect, FC } from 'react';
 import { useDispatch, useSelector } from '../../services/hooks';
 import { UserOrderPage } from '../../pages/user-order-page/user-order-page';
 import { ProfileUserInfo } from '../ProfileUserInfo/ProfileUserInfo';
-import { WS_URL_ALL } from '../../utils/variables';
-import {
-  wsConnectionStartOrdersAction,
-  wsConnectionClosedOrdersAction,
-} from '../../services/actions/wsAction';
 
 const App: FC = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    //dispatch(checkUserAccess());
-    //dispatch(wsConnectionStartOrdersAction(WS_URL_ALL));
+    dispatch(checkUserAccess());
     dispatch(getItems());
-    return () => {
-      dispatch(wsConnectionClosedOrdersAction());
-    };
+    return () => {};
   }, [dispatch]);
 
   const storeSelector = useSelector((state) => state);
@@ -46,17 +38,16 @@ const App: FC = () => {
     location.state?.locationProfile ||
     location;
 
-  console.log(storeSelector);
-
   return (
     <>
       <AppHeader />
       <Routes location={background}>
         <Route path="/" element={<MainPage />} />
         <Route path="ingredients/:id" element={<IngredientPage />} />
-        <Route path="feed/:id" element={<OrderPage />} />
+        <Route path="feed/:id" element={<OrderPage isProfilePage={false} />} />
         <Route path="feed" element={<FeedPage />} />
         <Route path="orders" element={<ProfilePage />} />
+        <Route path="profile/orders/:id" element={<OrderPage isProfilePage={true} />} />
         <Route
           path="login"
           element={
@@ -129,9 +120,11 @@ const App: FC = () => {
           <Route
             path="/profile/orders/:id"
             element={
-              <Modal isModalRoute={true}>
-                <FeedPageDetails isProfilePage={true} />
-              </Modal>
+              <ProtectedRoute onlyUnAuth={false}>
+                <Modal isModalRoute={true}>
+                  <FeedPageDetails isProfilePage={true} />
+                </Modal>
+              </ProtectedRoute>
             }
           />
         </Routes>

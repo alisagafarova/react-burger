@@ -4,12 +4,6 @@ import { getCookie } from '../../utils/cookie';
 import { logoutUser } from '../../services/actions/userForm';
 import { useDispatch } from '../../services/hooks';
 import { Outlet } from 'react-router';
-import { useEffect } from 'react';
-import { WS_URL_PROFILE } from '../../utils/variables';
-import {
-  wsConnectionStartOrdersAction,
-  wsConnectionClosedOrdersAction,
-} from '../../services/actions/wsAction';
 
 export const ProfilePage = (): JSX.Element => {
   const activeStyle = {
@@ -19,13 +13,6 @@ export const ProfilePage = (): JSX.Element => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const refreshToken = getCookie('refreshToken');
-
-  useEffect(() => {
-    dispatch(wsConnectionStartOrdersAction(WS_URL_PROFILE));
-    return () => {
-      dispatch(wsConnectionClosedOrdersAction());
-    };
-  }, []);
 
   return (
     <>

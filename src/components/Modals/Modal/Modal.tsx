@@ -18,8 +18,8 @@ const Modal: FC<IModal> = ({ onCloseModal, children, isModalRoute }) => {
       onCloseModal && onCloseModal();
     }
   }
-
-  function modalEscClose(evt: { key: string }) {
+ 
+  function modalEscClose(evt: KeyboardEvent) {
     if (evt.key === 'Escape') {
       modalClose();
     }

@@ -19,7 +19,6 @@ export const FeedPage: FC | any = () => {
   }, []);
 
   const { orders, total, totalToday } = useSelector((store) => store.wsReducer);
-  console.log('orders ', orders);
   const ordersDone = orders?.filter((item) => item.status === 'done');
   const ordersCreated = orders?.filter((item) => item.status === 'pending');
 

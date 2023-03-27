@@ -49,7 +49,7 @@ export const wsConnectionSuccessOrdersAction = (): IWsConnectionSuccessOrdersAct
 });
 
 export const wsConnectionErrorOrdersAction = (): IWsConnectionErrorOrdersAction => ({
-  type: WS_CONNECTION_ERROR_ORDERS,
+  type: WS_CONNECTION_ERROR_ORDERS
 });
 
 export const wsConnectionClosedOrdersAction = (): IWsConnectionClosedOrdersAction => ({

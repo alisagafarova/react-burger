@@ -10,17 +10,23 @@ import { useNavigate } from 'react-router-dom';
 import { IBurgerTotalBlock } from '../../services/types/data';
 import { resetOrder } from '../../services/actions/order';
 import { resetIngredient } from '../../services/actions/constructor';
+import { getCookie } from '../../utils/cookie';
 
 const BurgerTotalBlock: FC<IBurgerTotalBlock> = ({ ingredients, totalPrice }) => {
   const [modal, isModalOpen] = useState(false);
   const dispatch = useDispatch();
-  const isAuth = useSelector((store) => store.userReducer.isAuth);
+  const isAuth = useSelector((store) => store.userReducer.isAuth); 
 
   const navigate = useNavigate();
 
   const onClickButton = () => {
     isModalOpen(!modal);
-    isAuth ? dispatch(createOrder(ingredients)) : navigate('/login');
+    if (isAuth) {
+      const accessToken = getCookie('accessToken');
+      dispatch(createOrder(ingredients, accessToken));
+    } else {
+      navigate('/login');
+    }
   };
 
   function closeModal() {

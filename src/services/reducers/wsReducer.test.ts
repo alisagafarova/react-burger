@@ -49,6 +49,8 @@ describe('Тестируем редьюсер вебсокета', () => {
         })).toEqual({
             ...feedOrdersInitialState,
             wsConnected: false,
+            error: undefined
+            
         })
     });
 });

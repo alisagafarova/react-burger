@@ -11,6 +11,7 @@ type TFeedOrdersState = {
   orders: IOrder[];
   total: number;
   totalToday: number;
+  error: string | undefined
 };
 
 const feedOrdersInitialState: TFeedOrdersState = {
@@ -18,6 +19,7 @@ const feedOrdersInitialState: TFeedOrdersState = {
   orders: [],
   total: 0,
   totalToday: 0,
+  error: ''
 };
 
 const wsReducer = (
@@ -41,6 +43,7 @@ const wsReducer = (
       return {
         ...state,
         wsConnected: false,
+        error: action.error,
       };
     }
     case WS_GET_ORDERS: {
