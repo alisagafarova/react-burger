@@ -11,21 +11,25 @@ import {
   wsConnectionStartOrdersAction,
   wsConnectionClosedOrdersAction,
 } from '../../services/actions/wsAction';
-import { checkUserAccess } from '../../services/actions/userForm';
+
 export const OrderPage = (isProfilePage: any): JSX.Element | any => {
-  const ingredients = useSelector((store) => store.ingredientList.ingredients);
   const dispatch = useDispatch();
-  const { orders } = useSelector((store) => store.wsReducer);
-  const WS_URL_PROFILE = `${BASE_WS_URL}?token=${getCookie('accessToken')}`
+  console.log(isProfilePage.isProfilePage)
+
+  const WS_URL_PROFILE = `${BASE_WS_URL}?token=${getCookie('accessToken')}`;
 
   useEffect(() => {
-    
-    isProfilePage ? 
-    dispatch(wsConnectionStartOrdersAction(WS_URL_PROFILE)) : dispatch(wsConnectionStartOrdersAction(WS_URL_ALL)) ;
+    isProfilePage.isProfilePage
+      ? dispatch(wsConnectionStartOrdersAction(WS_URL_PROFILE))
+      : dispatch(wsConnectionStartOrdersAction(WS_URL_ALL));
     return () => {
       dispatch(wsConnectionClosedOrdersAction());
     };
   }, [dispatch]);
+
+  const ingredients = useSelector((store) => store.ingredientList.ingredients);
+
+  const { orders } = useSelector((store) => store.wsReducer);
 
   const { id } = useParams<{ id: string }>();
   const order: IOrder | undefined = orders.find((item) => item._id === id);
@@ -50,7 +54,7 @@ export const OrderPage = (isProfilePage: any): JSX.Element | any => {
     orderCard !== null && (
       <>
         <div className={'mt-30'}>
-          <FeedPageDetails /> 
+          <FeedPageDetails />
         </div>
       </>
     )
