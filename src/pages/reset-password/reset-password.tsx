@@ -1,20 +1,12 @@
-import {
-  Input,
-  PasswordInput,
-  Button,
-} from '@ya.praktikum/react-developer-burger-ui-components';
+import { Input, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, useNavigate } from 'react-router-dom';
 import styles from './reset-password.module.css';
-import {
-  resetPassword,
-} from "../../services/actions/userForm";
+import { resetPassword } from '../../services/actions/userForm';
 import { useState } from 'react';
 import { ChangeEvent, FormEvent } from 'react';
-import { useDispatch} from '../../services/hooks';
-
+import { useDispatch } from '../../services/hooks';
 
 export const ResetPasswordPage = (): JSX.Element => {
-
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
@@ -27,7 +19,7 @@ export const ResetPasswordPage = (): JSX.Element => {
 
   function resetFormSubmit(e: FormEvent) {
     e.preventDefault();
-    dispatch(resetPassword(resetPasswordForm, () => navigate("/login")));
+    dispatch(resetPassword(resetPasswordForm, () => navigate('/login')));
   }
 
   return (
@@ -36,7 +28,7 @@ export const ResetPasswordPage = (): JSX.Element => {
         <div className={styles.reset__content}>
           <p className="text text_type_main-medium mb-6">Восстановление пароля</p>
           <form className={styles.reset_form} onSubmit={resetFormSubmit}>
-          <PasswordInput
+            <PasswordInput
               placeholder="Введите новый пароль"
               name="password"
               onChange={onResetPasswordForm}
@@ -48,6 +40,8 @@ export const ResetPasswordPage = (): JSX.Element => {
               type="text"
               onChange={onResetPasswordForm}
               value={resetPasswordForm.token}
+              onPointerEnterCapture={() => {}}
+              onPointerLeaveCapture={() => {}}
             />
             <div className={styles.reset_button}>
               <Button htmlType="submit" type="primary" size="medium">
@@ -67,4 +61,4 @@ export const ResetPasswordPage = (): JSX.Element => {
       </main>
     </>
   );
-}
+};

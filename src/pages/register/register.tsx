@@ -8,7 +8,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import styles from './register.module.css';
 import { registerUser } from '../../services/actions/userForm';
 import { useState } from 'react';
-import { useDispatch} from '../../services/hooks';
+import { useDispatch } from '../../services/hooks';
 import { ChangeEvent, FormEvent } from 'react';
 
 export const RegisterPage = (): JSX.Element => {
@@ -33,9 +33,21 @@ export const RegisterPage = (): JSX.Element => {
         <div className={styles.register__content}>
           <p className="text text_type_main-medium mb-6">Регистрация</p>
           <form className={styles.register_form} onSubmit={regestrationFormSubmit}>
-            <Input placeholder="Имя" type="text" name="name" onChange={onRegisterFormChange} value={registerForm.name}/>
-            <EmailInput name="email" onChange={onRegisterFormChange} value={registerForm.email}/>
-            <PasswordInput name="password" onChange={onRegisterFormChange} value={registerForm.password}/>
+            <Input
+              placeholder="Имя"
+              type="text"
+              name="name"
+              onChange={onRegisterFormChange}
+              value={registerForm.name}
+              onPointerEnterCapture={() => {}}
+              onPointerLeaveCapture={() => {}}
+            />
+            <EmailInput name="email" onChange={onRegisterFormChange} value={registerForm.email} />
+            <PasswordInput
+              name="password"
+              onChange={onRegisterFormChange}
+              value={registerForm.password}
+            />
             <div className={styles.register_button}>
               <Button htmlType="submit" type="primary" size="medium">
                 Зарегистрироваться
@@ -54,4 +66,4 @@ export const RegisterPage = (): JSX.Element => {
       </main>
     </>
   );
-}
+};
