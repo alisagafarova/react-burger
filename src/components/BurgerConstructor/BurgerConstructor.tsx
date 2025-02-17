@@ -1,25 +1,25 @@
 import styles from './BurgerConstructor.module.css';
 import BurgerConstructorBlock from '../BurgerConstructorBlock/BurgerConstructorBlock';
 import BurgerTotalBlock from '../BurgerTotalBlock/BurgerTotalBlock';
-import {addIngredient} from '../../services/actions/constructor'
+import { addIngredient } from '../../services/actions/constructor';
 import { useMemo } from 'react';
 import { useDrop } from 'react-dnd';
 import { v4 as uuidv4 } from 'uuid';
-import {  FC } from 'react';
+import { FC } from 'react';
 import { useDispatch, useSelector } from '../../services/hooks';
 import { IIngredient } from '../../services/types/data';
 
 const BurgerConstructor: FC = () => {
   const ingredients = useSelector((store) => store.constructorList);
-  const burgerFillingStore : Array<IIngredient> = ingredients.fillings;
+  const burgerFillingStore: Array<IIngredient> = ingredients.fillings;
   const bunStore = ingredients.bun;
 
   const dispatch = useDispatch();
 
-  const [{ isHover }, dropTarget] = useDrop({
+  const [{ isHover }, dropTarget] = useDrop<IIngredient, void, { isHover: boolean }>({
     accept: 'ingredient',
-    drop(ingredient : IIngredient) {
-      dispatch(addIngredient( uuidv4(), ingredient));
+    drop: (ingredient) => {
+      dispatch(addIngredient(uuidv4(), ingredient));
     },
     collect: (monitor) => ({
       isHover: monitor.isOver(),
@@ -39,9 +39,14 @@ const BurgerConstructor: FC = () => {
   }, [burgerbunPrice, burgerFillingPrice, bunStore]);
 
   const borderColor = isHover ? 'lightblue' : 'transparent';
-
+  console.log('styles:', styles);
+  console.log('typeof styles.constructor:', typeof styles.constructor);
   return (
-    <div className={styles.constructor} ref={dropTarget} data-testid='drag-destination' style={{ borderColor }}>
+    <div
+      ref={dropTarget as any}
+      className={styles.myConstructor}
+      data-testid="drag-destination"
+      style={{ borderColor }}>
       {bunStore !== null && (
         <BurgerConstructorBlock
           type="top"
@@ -53,22 +58,22 @@ const BurgerConstructor: FC = () => {
         />
       )}
       {burgerFillingStore !== undefined && (
-      <ul className={styles.constructor__list}>
-        {burgerFillingStore.map((filling, index) => (
-          <BurgerConstructorBlock
-            key={filling.ingredientUniqId}
-            index={index}
-            ingredientCard={filling}
-            text={filling.name}
-            price={filling.price}
-            thumbnail={filling.image}
-            id={filling._id}
-            ingredientUniqId={filling.ingredientUniqId}
-            isLocked={false}
-          />
-        ))}
-      </ul>)
-      }
+        <ul className={styles.constructor__list}>
+          {burgerFillingStore.map((filling, index) => (
+            <BurgerConstructorBlock
+              key={filling.ingredientUniqId}
+              index={index}
+              ingredientCard={filling}
+              text={filling.name}
+              price={filling.price}
+              thumbnail={filling.image}
+              id={filling._id}
+              ingredientUniqId={filling.ingredientUniqId}
+              isLocked={false}
+            />
+          ))}
+        </ul>
+      )}
       {bunStore !== null && (
         <BurgerConstructorBlock
           type="bottom"
@@ -82,6 +87,6 @@ const BurgerConstructor: FC = () => {
       {totalPrice !== 0 && <BurgerTotalBlock totalPrice={totalPrice} ingredients={ingredients} />}
     </div>
   );
-}
+};
 
 export default BurgerConstructor;

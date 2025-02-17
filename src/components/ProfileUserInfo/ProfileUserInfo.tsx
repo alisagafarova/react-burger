@@ -4,6 +4,7 @@ import styles from './ProfileUserInfo.module.css';
 import { useState } from 'react';
 import { changeUserData } from '../../services/actions/userForm';
 import { ChangeEvent, FormEvent } from 'react';
+import { EditIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 export function ProfileUserInfo(): JSX.Element {
   const { user } = useSelector((store) => store.userReducer);
@@ -31,14 +32,18 @@ export function ProfileUserInfo(): JSX.Element {
     <>
       <form className={styles.profile_form} onSubmit={profileFormSubmit}>
         <Input
+          type="text"
           icon="EditIcon"
           placeholder="Имя"
           name="name"
           value={userData.name}
-          disabled={input.name ? false : true}
+          disabled={!input.name}
           onChange={onFormChange}
           onIconClick={() => setInput({ ...input, name: !input.name })}
+          onPointerEnterCapture={() => {}}
+          onPointerLeaveCapture={() => {}}
         />
+
         <Input
           icon="EditIcon"
           placeholder="Логин"
@@ -47,6 +52,8 @@ export function ProfileUserInfo(): JSX.Element {
           disabled={input.name ? false : true}
           onChange={onFormChange}
           onIconClick={() => setInput({ ...input, email: !input.email })}
+          onPointerEnterCapture={() => {}}
+          onPointerLeaveCapture={() => {}}
         />
         <Input
           icon="EditIcon"
@@ -54,6 +61,8 @@ export function ProfileUserInfo(): JSX.Element {
           onChange={onFormChange}
           placeholder="Пароль"
           value="******"
+          onPointerEnterCapture={() => {}}
+          onPointerLeaveCapture={() => {}}
         />
         <div className={styles.container__buttons}>
           <Button
